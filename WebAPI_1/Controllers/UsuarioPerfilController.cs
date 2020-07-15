@@ -68,6 +68,40 @@ namespace WebAPI_1.Controllers
 
         }
 
+        [HttpGet]
+        public IHttpActionResult ListaContactos(int idUsuario)
+        {
+            ContactoViewModel contactoViewModel = new ContactoViewModel();
+            DataTable dt = new DataTable();
+            using (conectar)
+            {
+                conectar.Open();
+                string query = "Select * from TBGrupoContacto Where idUsuario = @idUsuario";
+                SqlDataAdapter sda = new SqlDataAdapter(query, conectar);
+                sda.SelectCommand.Parameters.AddWithValue("@idUsuario", idUsuario);
+                sda.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+
+                contactoViewModel.IdGrupoContacto = Convert.ToInt32(dt.Rows[0][0]);
+                contactoViewModel.IdUsuario = Convert.ToInt32(dt.Rows[0][1]);
+                contactoViewModel.NumCellContacto = dt.Rows[0][2].ToString();
+                
+
+                return Ok(contactoViewModel);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            //return Ok("mm");
+
+
+        }
+
+
 
     }
 }

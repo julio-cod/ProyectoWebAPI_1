@@ -171,6 +171,7 @@
     </Compile>
     <Compile Include="Models\ChatViewModel.cs" />
     <Compile Include="Models\ConexionDB.cs" />
+    <Compile Include="Models\ContactoViewModel.cs" />
     <Compile Include="Models\EstudianteViewModel.cs" />
     <Compile Include="Models\MensajeViewModel.cs" />
     <Compile Include="Models\UsuarioPerfilViewModel.cs" />
