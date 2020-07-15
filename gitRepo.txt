@@ -1,0 +1,12 @@
+
+... o crea un nuevo repositorio en la línea de comando
+echo "# ProyectoWebAPI_1" >> README.md 
+git init 
+git add README.md 
+git commit -m "first commit" 
+git remote add origin https://github.com/julio-cod/ProyectoWebAPI_1.git
+ git push -u origin master
+                
+... o empujar un repositorio existente desde la línea de comando
+git remote add origin https://github.com/julio-cod/ProyectoWebAPI_1.git
+ git push -u origin master
