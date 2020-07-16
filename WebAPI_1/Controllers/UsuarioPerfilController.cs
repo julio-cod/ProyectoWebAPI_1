@@ -69,27 +69,29 @@ namespace WebAPI_1.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult ListaContactos(int idUsuario)
+        public IHttpActionResult ConsultarUsuarioPerfilNumeCell(string numCell)
         {
-            ContactoViewModel contactoViewModel = new ContactoViewModel();
+            UsuarioPerfilViewModel usuarioPerfilViewModel = new UsuarioPerfilViewModel();
             DataTable dt = new DataTable();
             using (conectar)
             {
                 conectar.Open();
-                string query = "Select * from TBGrupoContacto Where idUsuario = @idUsuario";
+                string query = "Select * from TBusuarioPerfil Where numCell = @numCell";
                 SqlDataAdapter sda = new SqlDataAdapter(query, conectar);
-                sda.SelectCommand.Parameters.AddWithValue("@idUsuario", idUsuario);
+                sda.SelectCommand.Parameters.AddWithValue("@numCell", numCell);
                 sda.Fill(dt);
             }
             if (dt.Rows.Count == 1)
             {
 
-                contactoViewModel.IdGrupoContacto = Convert.ToInt32(dt.Rows[0][0]);
-                contactoViewModel.IdUsuario = Convert.ToInt32(dt.Rows[0][1]);
-                contactoViewModel.NumCellContacto = dt.Rows[0][2].ToString();
-                
+                usuarioPerfilViewModel.IdUsuario = Convert.ToInt32(dt.Rows[0][0]);
+                usuarioPerfilViewModel.NombreUsuario = dt.Rows[0][1].ToString();
+                usuarioPerfilViewModel.ApellidoUsuario = dt.Rows[0][2].ToString();
+                usuarioPerfilViewModel.Correo = dt.Rows[0][3].ToString();
+                usuarioPerfilViewModel.NumCell = dt.Rows[0][4].ToString();
+                usuarioPerfilViewModel.FotoUsuario = dt.Rows[0][5].ToString();
 
-                return Ok(contactoViewModel);
+                return Ok(usuarioPerfilViewModel);
             }
             else
             {
@@ -102,6 +104,56 @@ namespace WebAPI_1.Controllers
         }
 
 
+        [HttpPost]
+        public IHttpActionResult RegistrarUsuariosPerfil(UsuarioPerfilViewModel usuarioPerfilViewModel)
+        {
+            using (conectar)
+            {
+                if (usuarioPerfilViewModel.NombreUsuario == "")
+                {
+                    return NotFound();
+                    
+                }
+                else
+                {
+                    conectar.Open();
+                    string query = "insert Into TBusuarioPerfil Values (@nombreUsuario,@apellidoUsuario,@correo,@numCell,@fotoUsuario)";
+                    SqlCommand cmd = new SqlCommand(query, conectar);
+                    cmd.Parameters.AddWithValue("@nombreUsuario", usuarioPerfilViewModel.NombreUsuario);
+                    cmd.Parameters.AddWithValue("@apellidoUsuario", usuarioPerfilViewModel.ApellidoUsuario);
+                    cmd.Parameters.AddWithValue("@correo", usuarioPerfilViewModel.Correo);
+                    cmd.Parameters.AddWithValue("@numCell", usuarioPerfilViewModel.NumCell);
+                    cmd.Parameters.AddWithValue("@fotoUsuario", usuarioPerfilViewModel.FotoUsuario);
+                    cmd.ExecuteNonQuery();
+                }
 
+            }
+
+            return Ok("Usuario Guardado");
+        }
+
+        [HttpPut]
+        public IHttpActionResult EditarUsuariosPerfil(UsuarioPerfilViewModel usuarioPerfilViewModel)
+        {
+            using (conectar)
+            {
+                conectar.Open();
+                string query = "Update TBusuarioPerfil Set nombreUsuario = @nombreUsuario,apellidoUsuario = @apellidoUsuario, correo = @correo, numCell = @numCell, fotoUsuario = @fotoUsuario Where idUsuario = @idUsuario";
+                SqlCommand cmd = new SqlCommand(query, conectar);
+                cmd.Parameters.AddWithValue("@idUsuario", usuarioPerfilViewModel.IdUsuario);
+                cmd.Parameters.AddWithValue("@nombreUsuario", usuarioPerfilViewModel.NombreUsuario);
+                cmd.Parameters.AddWithValue("@apellidoUsuario", usuarioPerfilViewModel.ApellidoUsuario);
+                cmd.Parameters.AddWithValue("@correo", usuarioPerfilViewModel.Correo);
+                cmd.Parameters.AddWithValue("@numCell", usuarioPerfilViewModel.NumCell);
+                cmd.Parameters.AddWithValue("@fotoUsuario", usuarioPerfilViewModel.FotoUsuario);
+                cmd.ExecuteNonQuery();
+            }
+
+            return Ok("Actualizado");
+        }
+
+
+
+        
     }
 }

@@ -13,5 +13,15 @@ namespace WebAPI_1.Models
 
         public string NumCellContacto { get; set; }
 
+        public int IdUsuarioReceptor { get; set; }
+
+        public string NombreUsuario { get; set; }
+
+        public string ApellidoUsuario { get; set; }
+
+        public string Correo { get; set; }
+
+        public string FotoUsuario { get; set; }
+
     }
 }
