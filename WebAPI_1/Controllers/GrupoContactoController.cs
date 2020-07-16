@@ -27,27 +27,9 @@ namespace WebAPI_1.Controllers
                 sda.SelectCommand.Parameters.AddWithValue("@idUsuario", idUsuario);
                 sda.Fill(dt);
             }
-            if (dt.Rows.Count == 1)
-            {
-
-                contactoViewModel.IdGrupoContacto = Convert.ToInt32(dt.Rows[0][0]);
-                contactoViewModel.IdUsuario = Convert.ToInt32(dt.Rows[0][1]);
-                contactoViewModel.NumCellContacto = dt.Rows[0][2].ToString();
-                contactoViewModel.IdUsuarioReceptor = Convert.ToInt32(dt.Rows[0][3]);
-                contactoViewModel.NombreUsuario = dt.Rows[0][4].ToString();
-                contactoViewModel.ApellidoUsuario = dt.Rows[0][5].ToString();
-                contactoViewModel.Correo = dt.Rows[0][6].ToString();
-                contactoViewModel.FotoUsuario = dt.Rows[0][7].ToString();
 
 
-                return Ok(contactoViewModel);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-            //return Ok("mm");
+            return Ok(dt);
 
 
         }
