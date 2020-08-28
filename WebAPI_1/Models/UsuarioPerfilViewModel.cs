@@ -12,7 +12,7 @@ namespace WebAPI_1.Models
         public string ApellidoUsuario { get; set; }
         public string Correo { get; set; }
         public string NumCell { get; set; }
-        public string FotoUsuario { get; set; }
+        public byte[] FotoUsuario { get; set; }
 
 
     }

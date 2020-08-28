@@ -21,7 +21,7 @@ namespace WebAPI_1.Models
 
         public string Correo { get; set; }
 
-        public string FotoUsuario { get; set; }
+        public byte[] FotoUsuario { get; set; }
 
     }
 }

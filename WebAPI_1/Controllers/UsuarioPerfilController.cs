@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -37,6 +38,8 @@ namespace WebAPI_1.Controllers
         public IHttpActionResult ConsultarUsuarioPerfilId(int idUsuario)
         {
             UsuarioPerfilViewModel usuarioPerfilViewModel = new UsuarioPerfilViewModel();
+            
+
             DataTable dt = new DataTable();
             using (conectar)
             {
@@ -48,13 +51,20 @@ namespace WebAPI_1.Controllers
             }
             if (dt.Rows.Count == 1)
             {
+                //operacion image
+                FileStream stream = new FileStream(dt.Rows[0][5].ToString(), FileMode.Open, FileAccess.Read);
+
+                //Se inicializa un arreglo de Bytes del tamaño de la imagen
+                byte[] binData = new byte[stream.Length];
 
                 usuarioPerfilViewModel.IdUsuario = Convert.ToInt32(dt.Rows[0][0]);
                 usuarioPerfilViewModel.NombreUsuario = dt.Rows[0][1].ToString();
                 usuarioPerfilViewModel.ApellidoUsuario = dt.Rows[0][2].ToString();
                 usuarioPerfilViewModel.Correo = dt.Rows[0][3].ToString();
                 usuarioPerfilViewModel.NumCell = dt.Rows[0][4].ToString();
-                usuarioPerfilViewModel.FotoUsuario = dt.Rows[0][5].ToString();
+                //usuarioPerfilViewModel.FotoUsuario = dt.Rows[0][5].ToString();
+
+                usuarioPerfilViewModel.FotoUsuario = binData;
 
                 return Ok(usuarioPerfilViewModel);
             }

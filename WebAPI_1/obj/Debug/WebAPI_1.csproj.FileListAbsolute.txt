@@ -82,7 +82,6 @@ C:\Proyectos API\WebAPI_1\WebAPI_1\bin\System.Web.WebPages.Deployment.xml
 C:\Proyectos API\WebAPI_1\WebAPI_1\bin\System.Web.WebPages.Razor.xml
 C:\Proyectos API\WebAPI_1\WebAPI_1\bin\Antlr3.Runtime.pdb
 C:\Proyectos API\WebAPI_1\WebAPI_1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Proyectos API\WebAPI_1\WebAPI_1\obj\Debug\WebAPI_1.csprojAssemblyReference.cache
 C:\Proyectos API\WebAPI_1\WebAPI_1\obj\Debug\WebAPI_1.csproj.CoreCompileInputs.cache
 C:\Proyectos API\WebAPI_1\WebAPI_1\obj\Debug\WebAPI_1.csproj.CopyComplete
 C:\Proyectos API\WebAPI_1\WebAPI_1\obj\Debug\WebAPI_1.dll
